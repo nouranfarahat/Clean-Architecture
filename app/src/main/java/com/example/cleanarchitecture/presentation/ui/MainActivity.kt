@@ -8,26 +8,23 @@ import com.example.cleanarchitecture.di.AppContainer
 import com.example.cleanarchitecture.MyApplication
 import com.example.cleanarchitecture.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityMainBinding
-    private lateinit var phoneViewModel: PhoneViewModel
-    //lateinit var phoneViewModelFactory: PhoneViewModelFactory
-    private lateinit var appContainer: AppContainer
+    //after using koin
+    val phoneViewModel: PhoneViewModel by inject()
+    // private lateinit var appContainer: AppContainer
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(LayoutInflater.from(this))
-        //val viewModel by viewModels<PhoneViewModel>()
         setContentView(binding.root)
 
-        appContainer = (application as MyApplication).appContainer
-
-
-        viewModelInitialization()
+        //appContainer = (application as MyApplication).appContainer
 
         lifecycleScope.launch {
             phoneViewModel.phoneBrand.collect {
@@ -38,13 +35,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun viewModelInitialization()
-    {
-//        phoneViewModelFactory = PhoneViewModelFactory(PhoneUseCase(PhoneRepositoryImp.getInstance(
-//            RemoteDataSource()
-//        )))
-        //phoneViewModel = ViewModelProvider(this,phoneViewModelFactory).get(PhoneViewModel::class.java)
-        phoneViewModel=appContainer.phoneViewModelFactory.create(PhoneViewModel::class.java)
-
-    }
 }

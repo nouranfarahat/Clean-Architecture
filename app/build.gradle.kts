@@ -65,5 +65,6 @@ dependencies {
     
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    implementation ("io.insert-koin:koin-android:3.1.4")
 
 }

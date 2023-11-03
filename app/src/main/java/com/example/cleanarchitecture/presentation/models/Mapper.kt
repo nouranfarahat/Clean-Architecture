@@ -10,7 +10,7 @@ fun PhoneDomainModel.toPhoneUIModel(): PhoneUIModel = PhoneUIModel(
         PhoneBrandEnum.IPHONE.phoneBrand -> R.string.iphone
         PhoneBrandEnum.SAMSUNG.phoneBrand -> R.string.samsung
 
-        else -> R.string.unknown
+        else -> throw IllegalArgumentException("Unknown phone brand: ${this.brandName}")
 
         //old solution
         /*"I" -> PhoneBrandEnum.IPHONE.name

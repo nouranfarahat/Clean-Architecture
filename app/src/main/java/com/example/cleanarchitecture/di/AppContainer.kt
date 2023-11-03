@@ -11,6 +11,6 @@ class AppContainer {
 
     private val phoneRepository = PhoneRepositoryImp(remoteDataSource)
     private val phoneUseCase=PhoneUseCase(phoneRepository)
-    val phoneViewModelFactory = PhoneViewModelFactory(phoneUseCase)
+    val phoneViewModelFactory = PhoneViewModelFactory(phoneUseCase)  //delete the factory class after using coin
 
 }
