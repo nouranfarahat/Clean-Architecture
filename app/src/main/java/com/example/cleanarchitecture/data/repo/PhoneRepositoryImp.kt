@@ -9,7 +9,7 @@ import com.example.cleanarchitecture.domain.PhoneDomainModel
 
 class PhoneRepositoryImp(private  val dataSource: IDataSource):IPhoneRepository {
 
-    companion object
+    /*companion object
     {
         private var instance: PhoneRepositoryImp?=null
         fun getInstance(
@@ -22,7 +22,7 @@ class PhoneRepositoryImp(private  val dataSource: IDataSource):IPhoneRepository 
             }
         }
 
-    }
+    }*/
 
     override suspend fun getPhoneData(): PhoneDomainModel {
         return dataSource.getPhoneData().toPhoneDomainModel()

@@ -3,21 +3,19 @@ package com.example.cleanarchitecture.presentation.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.cleanarchitecture.data.datasource.RemoteDataSource
-import com.example.cleanarchitecture.data.repo.PhoneRepositoryImp
+import com.example.cleanarchitecture.di.AppContainer
+import com.example.cleanarchitecture.MyApplication
 import com.example.cleanarchitecture.databinding.ActivityMainBinding
-import com.example.cleanarchitecture.domain.PhoneUseCase
-import com.example.mvvm.allproducts.viewmodel.PhoneViewModelFactory
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding:ActivityMainBinding
     private lateinit var phoneViewModel: PhoneViewModel
-    lateinit var phoneViewModelFactory: PhoneViewModelFactory
+    //lateinit var phoneViewModelFactory: PhoneViewModelFactory
+    private lateinit var appContainer: AppContainer
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(LayoutInflater.from(this))
         //val viewModel by viewModels<PhoneViewModel>()
         setContentView(binding.root)
+
+        appContainer = (application as MyApplication).appContainer
 
 
         viewModelInitialization()
@@ -40,10 +40,11 @@ class MainActivity : AppCompatActivity() {
 
     fun viewModelInitialization()
     {
-        phoneViewModelFactory = PhoneViewModelFactory(PhoneUseCase(PhoneRepositoryImp.getInstance(
-            RemoteDataSource()
-        )))
-        phoneViewModel = ViewModelProvider(this,phoneViewModelFactory).get(PhoneViewModel::class.java)
+//        phoneViewModelFactory = PhoneViewModelFactory(PhoneUseCase(PhoneRepositoryImp.getInstance(
+//            RemoteDataSource()
+//        )))
+        //phoneViewModel = ViewModelProvider(this,phoneViewModelFactory).get(PhoneViewModel::class.java)
+        phoneViewModel=appContainer.phoneViewModelFactory.create(PhoneViewModel::class.java)
 
     }
 }
